@@ -86,6 +86,11 @@ module Devise
             resource = new
             resource[auth_key] = auth_key_value
             resource.password = attributes[:password]
+            
+            entry = ldap_get_entry(auth_key_value)
+            ::Devise.ldap_collect_fields.each do |key, value|
+                resource[key] = entry[value].first
+            end
           end
 
           if resource.try(:valid_ldap_authentication?, attributes[:password])
