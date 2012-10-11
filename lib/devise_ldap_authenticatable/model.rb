@@ -61,6 +61,10 @@ module Devise
         Devise::LdapAdapter.get_ldap_param(login_with,param)
       end
 
+      def ldap_get_entry(login)
+        Devise::LdapAdapter.get_ldap_entry(login)
+      end
+
       #
       # callbacks
       #
