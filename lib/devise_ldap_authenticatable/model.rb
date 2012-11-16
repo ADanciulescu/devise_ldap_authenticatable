@@ -95,7 +95,7 @@ module Devise
             
             entry = ldap_get_entry(auth_key_value)
             ::Devise.ldap_collect_fields.each do |key, value|
-                resource[key] = entry[value].first
+                resource[key] = entry[value].join(";")
             end
           end
 
