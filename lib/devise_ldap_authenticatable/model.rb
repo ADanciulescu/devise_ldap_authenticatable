@@ -94,8 +94,10 @@ module Devise
             resource.password = attributes[:password]
             
             entry = ldap_get_entry(auth_key_value)
-            ::Devise.ldap_collect_fields.each do |key, value|
-                resource[key] = entry[value].join(";")
+            if ::Devise::LdapAdapter.valid_login?(auth_key_value)
+              ::Devise.ldap_collect_fields.each do |key, value|
+                  resource[key] = entry[value].join(";")
+              end
             end
           end
 
