@@ -40,6 +40,10 @@ module Devise
 
   mattr_accessor :ldap_collect_fields
   @@ldap_collect_fields = []
+
+  mattr_accessor :ldap_sync
+  @@ldap_sync = false
+
 end
 
 # Add ldap_authenticatable strategy to defaults.
