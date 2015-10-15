@@ -105,6 +105,12 @@ module Devise
             if resource.new_record?
               resource.ldap_before_save if resource.respond_to?(:ldap_before_save)
               resource.save
+            elsif ::Devise.ldap_collect_fields
+              entry = ldap_get_entry(auth_key_value)
+              ::Devise.ldap_collect_fields.each do |key, value|
+                resource[key] = entry[value].join(";")
+              end
+              resource.save
             end
             return resource
           else
